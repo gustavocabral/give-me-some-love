@@ -1,0 +1,7 @@
+<form>
+  <div class="form-group">
+    <label for="email">Email address</label>
+    {{input type="email" class="form-control" id="email" value=email placeholder="Email"}}
+  </div>
+  <button type="button" class="btn btn-default" {{action "register" email}}>Register</button>
+</form>

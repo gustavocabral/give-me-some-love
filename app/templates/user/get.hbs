@@ -1,0 +1,28 @@
+<h3>Get</h3>
+
+<form class="form-horizontal">
+  <div class="form-group">
+  	 <label class="sr-only" for="myId">My ID</label>
+	   <div id="myId" class="form-control" aria-describedby="receiverHelp">
+		    {{model.qrCode}}
+	   </div>
+	<span id="receiverHelp" class="help-block">Show this QR code to the person that wants to give you some love</span>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">{{model.user.name}}</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">{{model.user.email}}</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="button" class="btn btn-default" {{action "return"}}>Return</button>
+    </div>
+  </div>
+</form>
