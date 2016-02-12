@@ -4,7 +4,7 @@ export default Ember.Route.extend({
 	model: function () {
 		return Ember.Object.create({
 			user: this.modelFor('user'),
-			qrCode: null
+			qrCode: 'this is your id so others can send you love'
 		});
 	}
 });
