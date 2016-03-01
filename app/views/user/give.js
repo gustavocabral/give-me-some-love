@@ -2,60 +2,66 @@ import Em from 'ember';
 
 // windows, navigator
 
+var WIDTH = "800",
+	HEIGHT = "600";
+
 export default Em.View.extend({
 
-	cameraSupport: Em.computed(function () {
+	isCameraSupported: Em.computed(function () {
 		return navigator.getUserMedia || navigator.webkitGetUserMedia ||
             navigator.mozGetUserMedia || navigator.msGetUserMedia;
 	}),
 
-	canvasContext: null,
-
-	video: null,
-
 	initCamera: Em.on('didInsertElement', function () {
-		var cameraSupport = this.get('cameraSupport');
-		if (!cameraSupport) {
-	    	//console.log('browser has no camera support');			
+		if (!this.get('isCameraSupported')) {
+	    	console.log('browser has no camera support');			
 			return;
 		}
+
+		qrcode.callback = function (text) {
+			console.log('value read: %@'.fmt(text));
+			this.set('readValue', text);
+		}.bind(this);
 		
 		var $video = this.$('video')[0],
-			$canvas = this.$('canvas')[0],
-			canvasContext = $canvas.getContext("2d");
-    	
-		// Clear canvas
-    	canvasContext.clearRect(0, 0, 800, 600);
-    	this.set('canvasContext', canvasContext);
-    	this.set('video', $video);
+			$canvas = this.$('#qr-canvas')[0];
+		
+		$canvas.style.width = WIDTH + "px";
+    	$canvas.style.height = HEIGHT + "px";
+    	$canvas.width = WIDTH;
+    	$canvas.height = HEIGHT;
 
-		// qrcode.callback = function (value) {
-		// 	this.set('readValue', value);
-		// }.bind(this);
+    	var context = $canvas.getContext("2d");
+    	context.clearRect(0, 0, WIDTH, HEIGHT);
 
 		var success = function (stream) {
 		    $video.src = window.URL.createObjectURL(stream);
-		    setTimeout(this.drawToCanvas.bind(this), 500);
+		    this.decode($video, context);
 		}.bind(this);
 		var error = function (error) {
 		    console.log('errow while initializing camera', error);
 		};
 
 		// init camera
-	    //cameraSupport({video: true, audio: false}, success, error);
-	    navigator.webkitGetUserMedia({video: true, audio: false}, success, error);
+		Em.run.once('afterRender', function () {
+            navigator.webkitGetUserMedia({video: true, audio: false}, success, error);
+		});
+
 	}),
 
-	drawToCanvas: function () {
-		var canvasContext = this.get('canvasContext'),
-			$video = this.get('video');
+	decode: function ($video, context) {
 		try {
-		    canvasContext.drawImage($video, 0, 0);
-			//qrcode.decode();
-		}
-		catch(error) {       
+			context.drawImage($video, 0, 0);
+			try { 
+				console.log('tying to decode image.....');
+				qrcode.decode();
+			} catch (e1) {
+				console.log('Error while decoding', e1);
+				setTimeout(this.decode, 500, $video, context);
+			}
+		} catch(error) {       
 	        console.log('Error while drawing to canvas', error);
+			setTimeout(this.decode, 500, $video, context);
 		}
-		setTimeout(this.drawToCanvas, 500);
 	}
 });
