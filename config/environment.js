@@ -20,6 +20,7 @@ module.exports = function(environment) {
 
     contentSecurityPolicy: {
       'object-src': "'self' blob:",
+      'style-src': "'self' 'unsafe-inline'", 
       'connect-src': "'self' wss://localhost:49152/livereload",
       'script-src': "'self' 'unsafe-eval'",
       'media-src': "'self' blob:" 

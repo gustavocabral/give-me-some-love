@@ -12,6 +12,8 @@ export default Em.View.extend({
             navigator.mozGetUserMedia || navigator.msGetUserMedia;
 	}),
 
+	readValue: null,
+
 	initCamera: Em.on('didInsertElement', function () {
 		if (!this.get('isCameraSupported')) {
 	    	console.log('browser has no camera support');			
@@ -21,17 +23,12 @@ export default Em.View.extend({
 		qrcode.callback = function (text) {
 			console.log('value read: %@'.fmt(text));
 			this.set('readValue', text);
+			//this.initCanvas(250, 190);
 		}.bind(this);
 		
 		var $video = this.$('video')[0],
-			$canvas = this.$('#qr-canvas')[0];
-		
-		$canvas.style.width = WIDTH + "px";
-    	$canvas.style.height = HEIGHT + "px";
-    	$canvas.width = WIDTH;
-    	$canvas.height = HEIGHT;
+			context = this.initCanvas(WIDTH, HEIGHT).getContext("2d");
 
-    	var context = $canvas.getContext("2d");
     	context.clearRect(0, 0, WIDTH, HEIGHT);
 
 		var success = function (stream) {
@@ -49,19 +46,22 @@ export default Em.View.extend({
 
 	}),
 
+	initCanvas: function (width, height) {
+		var $canvas = this.$('#qr-canvas')[0];
+		$canvas.style.width = width + "px";
+    	$canvas.style.height = height + "px";
+    	$canvas.width = width;
+    	$canvas.height = height;
+    	return $canvas;
+	},
+
 	decode: function ($video, context) {
+		if (this.get('readValue')) { return; }
 		try {
 			context.drawImage($video, 0, 0);
-			try { 
-				console.log('tying to decode image.....');
-				qrcode.decode();
-			} catch (e1) {
-				console.log('Error while decoding', e1);
-				setTimeout(this.decode, 500, $video, context);
-			}
-		} catch(error) {       
-	        console.log('Error while drawing to canvas', error);
-			setTimeout(this.decode, 500, $video, context);
-		}
+			console.log('trying to decode image.....');
+			qrcode.decode();
+		} catch(error) {}
+		Em.run.later(this, this.decode, $video, context, 500);
 	}
 });

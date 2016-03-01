@@ -4,9 +4,10 @@
   <div class="form-group">
   	<label class="col-sm-2 control-label">Receiver ID</label>
     <div class="col-sm-4">
-      <video width="250" height="190" autoplay></video>
-      <br>
-      <canvas id="qr-canvas"></canvas>
+      <div>
+        <video style="display: {{if view.readValue 'none' 'inline'}}" autoplay></video>
+        <canvas id="qr-canvas" style="display: {{if view.readValue 'inline' 'none'}}"></canvas>
+      </div>
     </div>
   </div>
   <div class="form-group">

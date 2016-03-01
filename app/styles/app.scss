@@ -4,6 +4,9 @@
 @import "bootstrap/navbar";
 @import "bootstrap/buttons";
 
-#qr-canvas {
-    display: none;
+div video {
+    width: 250px;
+    height: 190px;
+	border: solid;
+	border-width: 1px 1px 1px 1px;
 }
