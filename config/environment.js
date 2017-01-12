@@ -4,12 +4,16 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'give-me-love',
     environment: environment,
-    baseURL: '/',
+    rootURL: '/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
+      },
+      EXTEND_PROTOTYPES: {
+        // Prevent Ember Data from overriding Date.parse.
+        Date: false
       }
     },
 
@@ -21,10 +25,10 @@ module.exports = function(environment) {
     contentSecurityPolicy: {
       'object-src': "'self' blob:",
       'style-src': "'self' 'unsafe-inline'", 
-      'connect-src': "'self' wss://localhost:49152/livereload",
+      'connect-src': "'self' wss://give-me-love.com:49152/livereload",
       'script-src': "'self' 'unsafe-eval'",
       'media-src': "'self' blob:" 
-    },
+    }
   };
 
   if (environment === 'development') {
@@ -37,7 +41,6 @@ module.exports = function(environment) {
 
   if (environment === 'test') {
     // Testem prefers this...
-    ENV.baseURL = '/';
     ENV.locationType = 'none';
 
     // keep test console output quieter

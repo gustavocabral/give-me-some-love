@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
 		enterCode: function (code) {
 			// Use 'code' to encrypt `model.privateKey` and save it at local storage
 			localStorage.setItem(Keys.ENCRYPTED_PRIVATE_KEY, this.get('model.privateKey') + '-' + code);
-			this.transitionTo('user');
+			this.transitionToRoute('user');
 		}
 	}
 });

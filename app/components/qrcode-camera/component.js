@@ -5,7 +5,7 @@ import Em from 'ember';
 var WIDTH = "800",
 	HEIGHT = "600";
 
-export default Em.View.extend({
+export default Em.Component.extend({
 
 	isCameraSupported: Em.computed(function () {
 		return navigator.getUserMedia || navigator.webkitGetUserMedia ||

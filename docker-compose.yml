@@ -1,0 +1,7 @@
+ember: &defaults
+  image: danlynn/ember-cli:2.10.0
+  volumes:
+      - .:/myapp
+  ports:
+    - "4200:4200"
+    - "49152:49152"
