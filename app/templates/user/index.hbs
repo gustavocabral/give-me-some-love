@@ -1,6 +1,31 @@
-<h3>User name: {{model.user.name}}</h3>
-<h4>User name: {{model.user.email}}</h4>
-<h4>Balance: {{model.user.balance}}</h4>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-4">
+        <p class="form-control-static">{{model.name}}</p>
+    </div>
+</div>
 
-<button type="button" class="btn btn-default btn-lg btn-block" {{action "give"}}>Give</button>
-<button type="button" class="btn btn-default btn-lg btn-block" {{action "get"}}>Get</button>
+<div class="form-group">
+    <label class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-4">
+        <p class="form-control-static">{{model.email}}</p>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">Balance</label>
+    <div class="col-sm-4">
+        <p class="form-control-static">{{model.balance}}</p>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <button type="button" class="btn btn-default btn-lg btn-block" {{action "give"}}>Give</button>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <button type="button" class="btn btn-default btn-lg btn-block" {{action "get"}}>Get</button>
+    </div>
+</div>

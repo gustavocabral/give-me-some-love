@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Em from 'ember';
 import Keys from 'give-me-love/utils/keys';
 
-export default Ember.Controller.extend({
+export default Em.Controller.extend({
 	actions: {
 		enterCode: function (code) {
 			// Use 'code' to encrypt `model.privateKey` and save it at local storage

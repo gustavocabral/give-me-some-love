@@ -4,9 +4,17 @@
 @import "bootstrap/navbar";
 @import "bootstrap/buttons";
 
-div video {
-    width: 250px;
-    height: 190px;
-	border: solid;
-	border-width: 1px 1px 1px 1px;
+.qrcode-camera {
+
+    .qrcode-camera__video {
+        width: 100%;
+    }
+
+    .qrcode-camera__canvas--hidden {
+        display: none;
+    }
+}
+
+.qr-code-image {
+    width: 100%;
 }

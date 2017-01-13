@@ -6,13 +6,14 @@ var WIDTH = "800",
 	HEIGHT = "600";
 
 export default Em.Component.extend({
+    classNames: ['qrcode-camera'],
+
+    readValue: null,
 
 	isCameraSupported: Em.computed(function () {
 		return navigator.getUserMedia || navigator.webkitGetUserMedia ||
             navigator.mozGetUserMedia || navigator.msGetUserMedia;
 	}),
-
-	readValue: null,
 
 	initCamera: Em.on('didInsertElement', function () {
 		if (!this.get('isCameraSupported')) {
@@ -20,48 +21,48 @@ export default Em.Component.extend({
 			return;
 		}
 
-		qrcode.callback = function (text) {
+		let $video = this.$('video')[0],
+            canvas = this.getCanvas();
+
+		qrcode.callback = (text) => {
 			console.log('value read: %@'.fmt(text));
 			this.set('readValue', text);
-			//this.initCanvas(250, 190);
-		}.bind(this);
-		
-		var $video = this.$('video')[0],
-			context = this.initCanvas(WIDTH, HEIGHT).getContext("2d");
+            $video.pause();
+		};
 
-    	context.clearRect(0, 0, WIDTH, HEIGHT);
-
-		var success = function (stream) {
+		let success = (stream) => {
 		    $video.src = window.URL.createObjectURL(stream);
-		    this.decode($video, context);
-		}.bind(this);
+            this.decode($video, canvas);
+		};
+
 		var error = function (error) {
-		    console.log('errow while initializing camera', error);
+		    console.log('Error while initializing camera', error);
 		};
 
 		// init camera
 		Em.run.once('afterRender', function () {
             navigator.webkitGetUserMedia({video: true, audio: false}, success, error);
 		});
-
 	}),
 
-	initCanvas: function (width, height) {
-		var $canvas = this.$('#qr-canvas')[0];
-		$canvas.style.width = width + "px";
-    	$canvas.style.height = height + "px";
-    	$canvas.width = width;
-    	$canvas.height = height;
-    	return $canvas;
+	getCanvas: function () {
+        let $canvas = this.$('#qr-canvas')[0];
+        $canvas.width = WIDTH;
+        $canvas.height = HEIGHT;
+        return $canvas.getContext('2d');
 	},
 
-	decode: function ($video, context) {
-		if (this.get('readValue')) { return; }
+	decode: function ($video, canvas) {
+		if (!qrcode.callback || this.get('readValue')) { return; }
 		try {
-			context.drawImage($video, 0, 0);
-			console.log('trying to decode image.....');
+            canvas.drawImage($video, 0, 0);
+			console.log('Trying to decode image.....');
 			qrcode.decode();
 		} catch(error) {}
-		Em.run.later(this, this.decode, $video, context, 500);
-	}
+		Em.run.later(this, this.decode, $video, canvas, 700);
+	},
+
+    stopCamera: Em.on('didDestroyElement', function () {
+        qrcode.callback = null;
+    })
 });

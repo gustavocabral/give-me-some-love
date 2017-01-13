@@ -18,8 +18,8 @@ export default Ember.Route.extend(CheckRegister, {
 		get: function () {
 			this.transitionTo('user.get');
 		},
-		return: function () {
-			this.transitionTo('user');
+		goToMenu: function () {
+			this.transitionTo('user.index');
 		}
 	}
 });
