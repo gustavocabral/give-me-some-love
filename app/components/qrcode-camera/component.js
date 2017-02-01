@@ -25,7 +25,7 @@ export default Em.Component.extend({
             canvas = this.getCanvas();
 
 		qrcode.callback = (text) => {
-			console.log('value read: %@'.fmt(text));
+			console.log(`value read: ${text}`);
 			this.set('readValue', text);
             $video.pause();
 		};

@@ -1,7 +1,12 @@
-import Ember from 'ember';
+import Em from 'ember';
 import Keys from 'give-me-love/utils/keys';
 
-export default Ember.Controller.extend({
+export default Em.Controller.extend({
+
+    email: '',
+
+    disableRegister: Em.computed.lt('email.length', 5),
+
 	actions: {
 		register: function (email) {
 			// TODO: user should proceed from URL sent to his email.

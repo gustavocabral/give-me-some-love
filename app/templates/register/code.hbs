@@ -1,5 +1,15 @@
 <div class="form-group">
-    <label for="code">Code</label>
-    {{input type="password" class="form-control" autocomplete="off" value=code}}
+    <label for="code" class="col-sm-2 control-label">Code</label>
+    <div class="col-sm-4">
+        {{input type="password" class="form-control" autocomplete="off" value=code}}
+    </div>
 </div>
-<button type="button" class="btn btn-default" {{action "enterCode" code}}>Enter</button>
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-4">
+        <button type="button" class="btn btn-default btn-lg btn-block" {{action "confirmCode" code}}
+                disabled={{disableConfirm}}>
+            Confirm
+        </button>
+    </div>
+</div>

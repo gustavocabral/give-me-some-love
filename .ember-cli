@@ -11,5 +11,10 @@
   "disableAnalytics": true,
   "ssl": true,
   "ssl-key": "config/ssl/server.key",
-  "ssl-cert": "config/ssl/server.crt"
+  "ssl-cert": "config/ssl/server.crt",
+
+  "ember-cli-deploy": {
+    "verbose": true
+  }
 }
+
