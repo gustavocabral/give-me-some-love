@@ -10,6 +10,10 @@ export default Em.Component.extend({
 
     readValue: null,
 
+    stream: null,
+
+    $video: null,
+
 	isCameraSupported: Em.computed(function () {
 		return navigator.getUserMedia || navigator.webkitGetUserMedia ||
             navigator.mozGetUserMedia || navigator.msGetUserMedia;
@@ -21,16 +25,19 @@ export default Em.Component.extend({
 			return;
 		}
 
-		let $video = this.$('video')[0],
+		let $video = this.$('video').get(0),
             canvas = this.getCanvas();
+
+        this.set('$video', $video);
 
 		qrcode.callback = (text) => {
 			console.log(`value read: ${text}`);
 			this.set('readValue', text);
-            $video.pause();
+            this.stopCamera();
 		};
 
 		let success = (stream) => {
+            this.set('stream', stream);
 		    $video.src = window.URL.createObjectURL(stream);
             this.decode($video, canvas);
 		};
@@ -45,8 +52,13 @@ export default Em.Component.extend({
 		});
 	}),
 
+    stopCamera: function() {
+        this.get('$video').pause();
+        this.get('stream').getTracks().get('firstObject').stop();
+    },
+
 	getCanvas: function () {
-        let $canvas = this.$('#qr-canvas')[0];
+        let $canvas = this.$('#qr-canvas').get(0);
         $canvas.width = WIDTH;
         $canvas.height = HEIGHT;
         return $canvas.getContext('2d');
@@ -59,10 +71,12 @@ export default Em.Component.extend({
 			console.log('Trying to decode image.....');
 			qrcode.decode();
 		} catch(error) {}
+
 		Em.run.later(this, this.decode, $video, canvas, 700);
 	},
 
-    stopCamera: Em.on('didDestroyElement', function () {
+    destroyCamera: Em.on('willDestroyElement', function () {
         qrcode.callback = null;
+        this.stopCamera();
     })
 });

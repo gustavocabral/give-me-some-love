@@ -1,5 +1,53 @@
 # give-me-love
 
+## Prerequisites
+
+You will need the following things properly installed on your computer.
+
+* [Git](https://git-scm.com/)
+* [Docker](https://www.docker.com/)
+
+## Installation
+
+* `git clone <repository-url>` this repository
+* `cd give-me-love`
+
+
+## Setup Docker env:
+
+If docker machine does not exist:
+$ docker-machine create --driver virtualbox default
+
+then
+$ docker-machine start default
+
+## Enter container
+
+$ docker run -ti -v $(pwd):/myapp -p 4200:4200 -p 49152:49152 danlynn/ember-cli:2.10.0 bash
+
+## Install npm and bower packages inside container
+
+$ /myapp# npm install
+$ /myapp# bower --allow-root install
+
+
+$ /myapp# sysctl -w fs.inotify.max_user_watches=10000000000
+https://facebook.github.io/watchman/docs/troubleshooting.html#poison-inotify-add-watch
+
+## Start development server
+
+$ /myapp# ember serve --watcher polling
+
+## Once container is setup
+ 
+$ docker-compose up
+
+## Reference
+
+https://github.com/danlynn/ember-cli
+
+
+
 This README outlines the details of collaborating on this Ember application.
 A short introduction of this app could easily go here.
 
