@@ -1,20 +1,35 @@
-ember: &defaults
-  image: danlynn/ember-cli:2.10.0
+frontend:
+  container_name: givemelove_frontend
+  image: "danlynn/ember-cli:2.10.0"
   volumes:
-      - .:/myapp
-
-npm:
-  <<: *defaults
-  command: npm
-
-bower:
-  <<: *defaults
-  command: bower --allow-root
-
-
-server:
-  <<: *defaults
-  command: server --watcher polling
+    - ./frontend:/usr/local/src/front-end
+  working_dir: /usr/local/src/front-end
+  command: bash -c "npm install -q && bower install -q --allow-root && ember server --watch"
   ports:
-    - "4200:4200"
-    - "49152:49152"
+    - 4200:4200
+    - 35729:35729
+    - 49152:49152
+
+#backend:
+#  container_name: givemelove_backend
+#  image: "strongloop/node"
+#  volumes:
+#    - ./backend:/usr/local/src/back-end
+#  working_dir: /usr/local/src/back-end
+#  command: bash -c "npm install -q && node ."
+#  ports:
+#    - 3000:3000
+#
+#mysql:
+#  image: mysql:5.6.27
+#  environment:
+#    - "MYSQL_ROOT_PASSWORD=notsecure"
+#    - "MYSQL_USER=givemelove"
+#    - "MYSQL_PASSWORD=givemelove"
+#    - "MYSQL_DATABASE=givemelove"
+#  volumes:
+#    - ./data-base:/usr/local/src/data-base
+#  ports:
+#    - 3306:3306
+#  links:
+#    - backend:givemelove_backend
