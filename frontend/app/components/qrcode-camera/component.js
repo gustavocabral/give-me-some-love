@@ -21,8 +21,8 @@ export default Em.Component.extend({
 
 	initCamera: Em.on('didInsertElement', function () {
 		if (!this.get('isCameraSupported')) {
-	    	console.log('browser has no camera support');			
-			return;
+            // console.log('browser has no camera support');
+            return;
 		}
 
 		let $video = this.$('video').get(0),
@@ -31,19 +31,19 @@ export default Em.Component.extend({
         this.set('$video', $video);
 
 		qrcode.callback = (text) => {
-			console.log(`value read: ${text}`);
+			// console.log(`value read: ${text}`);
 			this.set('readValue', text);
             this.stopCamera();
 		};
 
 		let success = (stream) => {
             this.set('stream', stream);
-		    $video.src = window.URL.createObjectURL(stream);
+            $video.src = window.URL.createObjectURL(stream);
             this.decode($video, canvas);
 		};
 
-		var error = function (error) {
-		    console.log('Error while initializing camera', error);
+		let error = function () {
+            // console.log('Error while initializing camera', error);
 		};
 
 		// init camera
@@ -68,9 +68,11 @@ export default Em.Component.extend({
 		if (!qrcode.callback || this.get('readValue')) { return; }
 		try {
             canvas.drawImage($video, 0, 0);
-			console.log('Trying to decode image.....');
+			// console.log('Trying to decode image.....');
 			qrcode.decode();
-		} catch(error) {}
+		} catch(error) {
+            // TODO: treat error
+        }
 
 		Em.run.later(this, this.decode, $video, canvas, 700);
 	},

@@ -1,12 +1,14 @@
 frontend:
   container_name: givemelove_frontend
-  image: "danlynn/ember-cli:2.10.0"
+  image: "danlynn/ember-cli:latest"
   volumes:
     - ./frontend:/usr/local/src/front-end
   working_dir: /usr/local/src/front-end
   command: bash -c "npm install -q && bower install -q --allow-root && ember server --watch"
   ports:
     - 4200:4200
+    - 5779:5779
+    - 7020:7020
     - 35729:35729
     - 49152:49152
 

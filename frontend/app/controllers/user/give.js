@@ -27,12 +27,13 @@ export default Em.Controller.extend({
 
 	actions: {
 		confirm: function () {
-    	    let transactionObject = {
-                    to: this.get('receiver'),
-                    from: this.get('model.email'),
-                    amount: this.get('amount'),
-                    timestamp: (new Date()).toString()
-                };
+
+            let transactionObject = {
+                to: this.get('receiver'),
+                from: this.get('model.email'),
+                amount: this.get('amount'),
+                timestamp: (new Date()).toString()
+            };
             this.set('transactionObject', transactionObject);
 		},
 

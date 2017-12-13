@@ -1,5 +1,3 @@
-/* jshint node: true */
-
 module.exports = function (deployTarget) {
     var ENV = {
         // include other plugin configuration that applies to all deploy targets here
