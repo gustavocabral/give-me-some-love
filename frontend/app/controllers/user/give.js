@@ -1,6 +1,7 @@
 import Em from 'ember';
+import DeviceAware from 'give-me-love/mixins/device-aware';
 
-export default Em.Controller.extend({
+export default Em.Controller.extend(DeviceAware, {
 
     amount: undefined,
 

@@ -15,7 +15,11 @@
             <label class="col-sm-2 control-label">Scanning</label>
 
             <div class="col-sm-10">
-                {{qrcode-camera readValue=transaction}}
+                {{#if isIOS}}
+                    {{qrcode-processor readValue=transaction}}
+                {{else}}
+                    {{qrcode-camera readValue=transaction}}
+                {{/if}}
             </div>
         </div>
     {{/if}}

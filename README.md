@@ -72,4 +72,5 @@ Make use of the many generators for code, try `ember help generate` for more det
 ### AWS
 
 * [https app](https://d24zzlz44szl2b.cloudfront.net/)
-* [http app](https://give-me-love.s3-website-sa-east-1.amazonaws.com/)
+* [http app](http://give-me-love.s3-website-sa-east-1.amazonaws.com/)
+* [AWS setup: S3+CloudFront](http://blog.testdouble.com/posts/2015-11-03-deploying-ember-to-aws-cloudfront-using-ember-cli-deploy)
