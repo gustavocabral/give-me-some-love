@@ -1,7 +1,7 @@
 import Em from 'ember';
 
 export default Em.Route.extend({
-	model: function () {
-        return this.modelFor('user');
-	}
+    beforeModel: function() {
+        this.transitionTo('user.give.scan');
+    }
 });

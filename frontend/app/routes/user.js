@@ -3,7 +3,7 @@ import Keys from 'give-me-love/utils/keys';
 import CheckRegister from 'give-me-love/mixins/routes/check-register';
 
 export default Ember.Route.extend(CheckRegister, {
-	model: function () {
+	model: function() {
 		// TODO: Use ember-data store user object
 		return Ember.Object.create({
 			email: localStorage.getItem(Keys.USER_NAME),
@@ -12,13 +12,13 @@ export default Ember.Route.extend(CheckRegister, {
 		});
 	},
 	actions: {
-		give: function () {
+		give: function() {
 			this.transitionTo('user.give');
 		},
-		get: function () {
+		get: function() {
 			this.transitionTo('user.get');
 		},
-		goToMenu: function () {
+		goToMenu: function() {
 			this.transitionTo('user.index');
 		}
 	}

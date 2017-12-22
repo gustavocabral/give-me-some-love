@@ -1,6 +1,6 @@
 # From https://github.com/marmelab/make-docker-command/blob/master/Makefile
 # If the first argument is one of the supported commands...
-SUPPORTED_COMMANDS := composer test ssh cache-clear
+SUPPORTED_COMMANDS := yarn bower ember be-composer be-test e2e-composer e2e-test fixtures
 SUPPORTS_MAKE_ARGS := $(findstring $(firstword $(MAKECMDGOALS)), $(SUPPORTED_COMMANDS))
 ifneq "$(SUPPORTS_MAKE_ARGS)" ""
   # use the rest as arguments for the command
@@ -9,14 +9,30 @@ ifneq "$(SUPPORTS_MAKE_ARGS)" ""
   $(eval $(COMMAND_ARGS):;@:)
 endif
 
-composer:
-	@docker-compose exec 'php' sh -c "composer $(COMMAND_ARGS)"
+up:
+	@docker-compose up --abort-on-container-exit --remove-orphans
 
-test:
-	@docker-compose exec 'php' sh -c "./vendor/bin/phpunit"
+stop:
+	@docker-compose stop
 
-ssh:
+clean:
+	@docker-compose down -v --remove-orphans
+
+fresh-up: clean
+	@docker-compose up --force-recreate --build --abort-on-container-exit --remove-orphans
+
+yarn:
+	@docker-compose exec 'ember' -sh -c "yarn $(COMMANDS_ARGS)"
+
+bower:
+	@docker-compose exec 'ember' -sh -c "node_modules/bower/bin/bower $(COMMANDS_ARGS)"
+
+ember:
+	@docker-compose exec 'ember' sh -c "node_modules/ember-cli/bin/ember $(COMMAND_ARGS)"
+
+be-bash:
 	@docker-compose exec 'php' /bin/bash
 
-cache-clear:
-	@docker-compose exec 'php' sh -c "rm -rf var/cache/*"
+fe-bash:
+	@docker-compose exec 'ember' /bin/bash
+

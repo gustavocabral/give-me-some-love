@@ -2,40 +2,7 @@
 
 <form class="form-horizontal">
 
-{{#if scanning}}
-    {{#if transaction}}
-        {{partial 'user/transaction'}}
-        <div class="form-group">
-            <div class="col-sm-12">
-                <button type="button" class="btn btn-default btn-lg btn-block" {{action "claim"}}>Claim</button>
-            </div>
-        </div>
-    {{else}}
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Scanning</label>
-
-            <div class="col-sm-10">
-                {{#if isIOS}}
-                    {{qrcode-processor readValue=transaction}}
-                {{else}}
-                    {{qrcode-camera readValue=transaction}}
-                {{/if}}
-            </div>
-        </div>
-    {{/if}}
-{{else}}
-    {{#if transaction}}
-        <div class="form-group">
-            <label for="amount" class="col-sm-2 control-label">New balance</label>
-
-            <div class="col-sm-10">
-                <p class="form-control-static">{{model.balance}}</p>
-            </div>
-        </div>
-    {{else}}
-        {{partial 'user/info'}}
-    {{/if}}
-{{/if}}
+{{outlet}}
 
 {{partial 'user/menu'}}
 

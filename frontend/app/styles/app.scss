@@ -4,17 +4,6 @@
 @import "bootstrap/navbar";
 @import "bootstrap/buttons";
 
-.qrcode-camera {
-
-    .qrcode-camera__video {
-        width: 100%;
-    }
-
-    .qrcode-camera__canvas--hidden {
-        display: none;
-    }
-}
-
-.qr-code-image {
-    width: 100%;
-}
+@import "util";
+@import "components/qr-camera";
+@import "components/qr-processor";

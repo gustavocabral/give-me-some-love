@@ -1,2 +1,15 @@
-<input type="file" accept="image/*;capture=camera">
-<canvas id="qr-canvas" class="qrcode-camera__canvas--hidden"></canvas>
+<form class="form-horizontal">
+    <div class="form-group">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-default btn-lg btn-block" {{action "scan"}}>
+                Scan
+            </button>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input class="qrcode-processor__file" type="file" accept="image/*">
+            <img class="qr-code-image"/>
+        </div>
+    </div>
+</form>

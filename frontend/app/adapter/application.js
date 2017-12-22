@@ -15,7 +15,7 @@ export default DS.JSONAPIAdapter.extend({
      * @memberOf {Application.Adapter}
      * @return {String}
      */
-    host: Em.computed(function () {
+    host: Em.computed(function() {
         return 'http://' + window.location.hostname + ':3000';
     })
 });

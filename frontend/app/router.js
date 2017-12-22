@@ -7,13 +7,20 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-	this.route('register', function () {
+	this.route('register', function() {
 		this.route('index', {path: '/'});
 		this.route('code', {path: ':reg_id'});
 	});
-	this.route('user', function () {
-		this.route('get');
-		this.route('give');
+	this.route('user', function() {
+		this.route('get', function() {
+            this.route('info');
+            this.route('scan', {path: '/scan'});
+            this.route('send', {path: '/:timestamp'});
+        });
+		this.route('give', function() {
+            this.route('scan');
+            this.route('send', {path: '/:timestamp'});
+        });
 	});
 });
 
