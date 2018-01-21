@@ -59,7 +59,13 @@ export default Em.Component.extend({
 
         // init camera
         Em.run.once('afterRender', function() {
-            navigator.mediaDevices.getUserMedia({video: true, audio: false}).then(success).catch(error);
+            const options = {
+                video: {
+                    facingMode: "environment"
+                }, 
+                audio: false
+            };
+            navigator.mediaDevices.getUserMedia(options).then(success).catch(error);
         });
 
     },

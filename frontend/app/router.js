@@ -7,11 +7,8 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-	this.route('register', function() {
-		this.route('index', {path: '/'});
-		this.route('code', {path: ':reg_id'});
-	});
-	this.route('user', function() {
+	this.route('register');
+	this.route('user', {path: '/:id'}, function() {
 		this.route('get', function() {
             this.route('info');
             this.route('scan', {path: '/scan'});

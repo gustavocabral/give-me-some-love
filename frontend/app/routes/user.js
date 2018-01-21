@@ -1,12 +1,11 @@
 import Ember from 'ember';
-import Keys from 'give-me-love/utils/keys';
 import CheckRegister from 'give-me-love/mixins/routes/check-register';
 
 export default Ember.Route.extend(CheckRegister, {
-	model: function() {
-		// TODO: Use ember-data store user object
+	model: function(params) {
+		// TODO: Use ember-data store to retrive user from server
 		return Ember.Object.create({
-			email: localStorage.getItem(Keys.USER_NAME),
+			email: params.id,
 			name: "John Doe",
 			balance: 100.00
 		});

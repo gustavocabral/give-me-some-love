@@ -1,14 +1,12 @@
 import Ember from 'ember';
-import Keys from 'give-me-love/utils/keys';
+import { inject as service } from '@ember/service';
 
 export default Ember.Mixin.create({
-	beforeModel: function() {
-		var userName = localStorage.getItem(Keys.USER_NAME),
-            encryptedPrivateKey = localStorage.getItem(Keys.ENCRYPTED_PRIVATE_KEY);
 
-        // not registered
-        if (!userName || !encryptedPrivateKey) {
-            this.transitionTo('register');
-        }
+    security: service(),
+
+	beforeModel: function() {
+        const id = this.get('security').getId()
+        return id ? this.transitionTo('user', id) : this.transitionTo('register');
 	}
 });

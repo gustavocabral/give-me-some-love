@@ -79,3 +79,22 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 - https://devcenter.heroku.com/articles/ssl-certificate-self
 - https://developers.google.com/web/progressive-web-apps/checklist
+- Web Crypto API: https://github.com/diafygi/webcrypto-examples/#ecdsa---generatekey
+- Web Crypto API table: https://diafygi.github.io/webcrypto-examples/
+
+### TODO
+
+- TEST: Use environment camera on Android: { facingMode: { exact: "environment" }
+- Add audio feedback: bip when scan is done
+- create private/public keys
+
+- Give: Send `love` to server
+
+- Stop camera after scan: Android
+    - re-scan: pause -> play
+- scan button on ios
+    - img thumbnail
+- refactor routes (back support)
+    - id -> json
+    - service
+- Add favorite `lovers`
